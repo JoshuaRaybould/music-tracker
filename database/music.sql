@@ -46,6 +46,7 @@ CREATE TABLE albums (
   album_name VARCHAR(255),
   album_length INTERVAL,
   first_listened_album TIMESTAMP,
+  last_listened_album TIMESTAMP,
   PRIMARY KEY(album_id)
 );
 
