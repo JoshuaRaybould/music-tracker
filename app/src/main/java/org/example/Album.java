@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "album")
+@Table(name = "albums")
 public class Album {
     
     @Id @Column(name = "album_id") private int id;
@@ -19,10 +19,18 @@ public class Album {
         this.name = name;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public String getName() {
         return name;
     }
