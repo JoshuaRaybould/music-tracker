@@ -1,4 +1,4 @@
-CREATE TABLE users (
+/*CREATE TABLE users (
   user_id INTEGER GENERATED ALWAYS AS IDENTITY, 
   user_name VARCHAR(255),
   PRIMARY KEY(user_id)
@@ -52,3 +52,4 @@ CREATE TABLE users_songs (
   longest_streak INTEGER,
   PRIMARY KEY(user_id, song_id)
 );
+*/
