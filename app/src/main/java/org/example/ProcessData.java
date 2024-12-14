@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ProcessData {
-    private List<Song> allSongs;
+    private List<RawSong> allSongs;
 
-    private List<ProcessedSong> processedSongs;
+    private List<Song> processedSongs;
 
     private List<Artist> artists;
 
@@ -28,7 +28,7 @@ public class ProcessData {
 
     private void carryOutProcessing() {
 
-        for (Song song : allSongs) {
+        for (RawSong song : allSongs) {
             int artistId;
             int albumId;
 
@@ -45,39 +45,40 @@ public class ProcessData {
             }
 
             if (!uriToSongPos.containsKey(song.getTrackUri())) {
-                addProcessedSong(song, artistId, albumId);
+                //addProcessedSong(song, artistId, albumId);
             } else {
-                updateProcessedSong(song);
+                //updateProcessedSong(song);
             }
 
         } 
     }
 
-    private int createArtist(Song song) {
+    private int createArtist(RawSong song) {
+        Artist artist = new Artist();
         return 0;
     }
 
-    private int updateArtist(Song song) {
+    private int updateArtist(RawSong song) {
         return 0;
     }
 
-    private int createAlbum(Song song) {
+    private int createAlbum(RawSong song) {
         return 0;
     }
 
-    private int updateAlbum(Song song) {
+    private int updateAlbum(RawSong song) {
         return 0;
     }
 
-    private void addProcessedSong(Song song, int artistId, int albumId) {
-        ProcessedSong processedSong = new ProcessedSong(song.getName(), song.getTrackUri(), song.getTimeListened(), artistId, albumId);
+    /*private void addProcessedSong(RawSong song, int artistId, int albumId) {
+        Song processedSong = new Song(song.getName(), song.getTrackUri(), song.getTimeListened(), artistId, albumId);
         processedSongs.add(processedSong);
         uriToSongPos.put(song.getTrackUri(), processedSongs.size()-1);
     }
 
-    private void updateProcessedSong(Song song) {
+    private void updateProcessedSong(RawSong song) {
         int curSongPos = uriToSongPos.get(song.getTrackUri());
-        ProcessedSong curSong = processedSongs.get(curSongPos);
+        Song curSong = processedSongs.get(curSongPos);
         curSong.addTimeListened(song.getTimeListened());
-    }
+    }*/
 }

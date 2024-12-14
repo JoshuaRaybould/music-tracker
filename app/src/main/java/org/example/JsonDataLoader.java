@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDataLoader {
     
-    private List<Song> songs;
+    private List<RawSong> songs;
 
     public JsonDataLoader(){
         InputStream inStream = getClass().getClassLoader().getResourceAsStream("songData.json");
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            songs = objectMapper.readValue(inStream, new TypeReference<List<Song>>() {});
-            for (Song song : songs) {
+            songs = objectMapper.readValue(inStream, new TypeReference<List<RawSong>>() {});
+            for (RawSong song : songs) {
                 System.out.println(song.getName());
             }
         } catch (IOException e) {
@@ -24,7 +24,7 @@ public class JsonDataLoader {
 
     }
 
-    public List<Song> getSongs() {
+    public List<RawSong> getSongs() {
         return songs;
     }
 }
