@@ -2,6 +2,8 @@ package org.example;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -10,32 +12,38 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "songs")
 public class Song {
-    
-    @Id @Column(name = "song_id") private int id;
 
-    @Column(name = "song_name") private String name;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "song_id")
+   private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "artist_id") private Artist artist;
+   @Column(name = "song_name")
+   private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id") private Album album;
+   @ManyToOne
+   @JoinColumn(name = "artist_id")
+   private Artist artist;
 
-    public Song(){}
+   @ManyToOne
+   @JoinColumn(name = "album_id")
+   private Album album;
 
-    public Song(String name, Artist artist, Album album){
-        this.name = name;
-        this.artist = artist;
-        this.album = album;
-    }
+   public Song() {
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public Song(String name, Artist artist, Album album) {
+      this.name = name;
+      this.artist = artist;
+      this.album = album;
+   }
 
-    public String getName() {
-        return name;
-    }
+   public void setName(String name) {
+      this.name = name;
+   }
 
+   public String getName() {
+      return name;
+   }
 
 }
