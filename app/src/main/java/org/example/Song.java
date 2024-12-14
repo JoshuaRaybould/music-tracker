@@ -12,6 +12,12 @@ public class Song {
     @JsonProperty("ms_played")
     private int timeListened;
 
+    @JsonProperty("master_metadata_album_artist_name")
+    private String artistName;
+    
+    @JsonProperty("master_metadata_album_album_name")
+    private String albumName;
+
     @JsonProperty("spotify_track_uri")
     private String trackUri;
 
@@ -25,6 +31,14 @@ public class Song {
 
     public int getTimeListened() {
         return timeListened;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public String getAlbumName() {
+        return albumName;
     }
     
     public String getTrackUri() {
