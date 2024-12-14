@@ -1,47 +1,41 @@
 package org.example;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table(name = "songs")
 public class Song {
     
-    @JsonProperty("master_metadata_track_name")
-    private String name;
+    @Id @Column(name = "song_id") private int id;
 
-    @JsonProperty("ms_played")
-    private int timeListened;
+    @Column(name = "song_name") private String name;
 
-    @JsonProperty("master_metadata_album_artist_name")
-    private String artistName;
-    
-    @JsonProperty("master_metadata_album_album_name")
-    private String albumName;
+    @ManyToOne
+    @JoinColumn(name = "artist_id") private Artist artist;
 
-    @JsonProperty("spotify_track_uri")
-    private String trackUri;
+    @ManyToOne
+    @JoinColumn(name = "album_id") private Album album;
 
-    public Song(){
+    public Song(){}
 
+    public Song(String name, Artist artist, Album album){
+        this.name = name;
+        this.artist = artist;
+        this.album = album;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getTimeListened() {
-        return timeListened;
-    }
 
-    public String getArtistName() {
-        return artistName;
-    }
-
-    public String getAlbumName() {
-        return albumName;
-    }
-    
-    public String getTrackUri() {
-        return trackUri;
-    }
 }
