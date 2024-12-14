@@ -7,24 +7,25 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDataLoader {
-    
-    private List<RawSong> songs;
 
-    public JsonDataLoader(){
-        InputStream inStream = getClass().getClassLoader().getResourceAsStream("songData.json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            songs = objectMapper.readValue(inStream, new TypeReference<List<RawSong>>() {});
-            for (RawSong song : songs) {
-                System.out.println(song.getName());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+   private List<RawSong> songs;
 
-    }
+   public JsonDataLoader() {
+      InputStream inStream = getClass().getClassLoader().getResourceAsStream("songData.json");
+      ObjectMapper objectMapper = new ObjectMapper();
+      try {
+         songs = objectMapper.readValue(inStream, new TypeReference<List<RawSong>>() {
+         });
+         for (RawSong song : songs) {
+            System.out.println(song.getName());
+         }
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
 
-    public List<RawSong> getSongs() {
-        return songs;
-    }
+   }
+
+   public List<RawSong> getSongs() {
+      return songs;
+   }
 }

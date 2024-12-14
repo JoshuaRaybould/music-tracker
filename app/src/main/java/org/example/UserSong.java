@@ -13,83 +13,89 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users_songs")
 public class UserSong {
-    
-    @Id
-    @GeneratedValue
-    private Integer id;
 
-    @NaturalId
-    @Column(name = "user_id")
-    private User user;
+   @Id
+   @GeneratedValue
+   private Integer id;
 
-    @NaturalId
-    @Column(name = "song_id")
-    private Song song;
+   @NaturalId
+   @Column(name = "user_id")
+   private User user;
 
-    @Column(name = "time_listened", columnDefinition = "interval") private Duration timeListened;
+   @NaturalId
+   @Column(name = "song_id")
+   private Song song;
 
-    @Column(name = "first_listened") private java.util.Date firstListenedDate;
+   @Column(name = "time_listened", columnDefinition = "interval")
+   private Duration timeListened;
 
-    @Column(name = "last_listened") private java.util.Date lastListenedDate;
+   @Column(name = "first_listened")
+   private java.util.Date firstListenedDate;
 
-    @Column(name = "longest_streak") private int longestStreak;
+   @Column(name = "last_listened")
+   private java.util.Date lastListenedDate;
 
-    public UserSong() {}
+   @Column(name = "longest_streak")
+   private Integer longestStreak;
 
-    public UserSong (User user, Song song, Duration timeListened, java.util.Date firstListenedDate, java.util.Date lastListenedDate, int longestStreak) {
-        this.user = user;
-        this.song = song;
-        this.timeListened = timeListened;
-        this.firstListenedDate = firstListenedDate;
-        this.lastListenedDate = lastListenedDate;
-        this.longestStreak = longestStreak;
-    }
+   public UserSong() {
+   }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+   public UserSong(User user, Song song, Duration timeListened, java.util.Date firstListenedDate,
+         java.util.Date lastListenedDate, Integer longestStreak) {
+      this.user = user;
+      this.song = song;
+      this.timeListened = timeListened;
+      this.firstListenedDate = firstListenedDate;
+      this.lastListenedDate = lastListenedDate;
+      this.longestStreak = longestStreak;
+   }
 
-    public User getUser() {
-        return user;
-    }
+   public void setUser(User user) {
+      this.user = user;
+   }
 
-    public void setSong(Song song) {
-        this.song = song;
-    }
+   public User getUser() {
+      return user;
+   }
 
-    public Song getSong() {
-        return song;
-    }
+   public void setSong(Song song) {
+      this.song = song;
+   }
 
-    public void setTimeListened(Duration timeListened) {
-        this.timeListened = timeListened;
-    }
-    
-    public Duration getTimeListened() {
-        return timeListened;
-    }
+   public Song getSong() {
+      return song;
+   }
 
-    public void setFirstListenedDate(java.util.Date firstListenedDate) {
-        this.firstListenedDate = firstListenedDate;
-    }
+   public void setTimeListened(Duration timeListened) {
+      this.timeListened = timeListened;
+   }
 
-    public java.util.Date getFirstListenedDate() {
-        return firstListenedDate;
-    }
+   public Duration getTimeListened() {
+      return timeListened;
+   }
 
-    public void setLastListenedDate(java.util.Date lastListenedDate) {
-        this.lastListenedDate = lastListenedDate;
-    }
+   public void setFirstListenedDate(java.util.Date firstListenedDate) {
+      this.firstListenedDate = firstListenedDate;
+   }
 
-    public java.util.Date getLastListenedDate() {
-        return lastListenedDate;
-    }
+   public java.util.Date getFirstListenedDate() {
+      return firstListenedDate;
+   }
 
-    public void setLongestStreak(int longestStreak) {
-        this.longestStreak = longestStreak;
-    }
+   public void setLastListenedDate(java.util.Date lastListenedDate) {
+      this.lastListenedDate = lastListenedDate;
+   }
 
-    public int getLongestStreak() {
-        return longestStreak;
-    }
+   public java.util.Date getLastListenedDate() {
+      return lastListenedDate;
+   }
+
+   public void setLongestStreak(Integer longestStreak) {
+      this.longestStreak = longestStreak;
+   }
+
+   public Integer getLongestStreak() {
+      return longestStreak;
+   }
 }

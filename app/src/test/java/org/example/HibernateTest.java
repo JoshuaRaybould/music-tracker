@@ -9,30 +9,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HibernateTest {
-    
-    private SessionFactory sessionFactory;
 
-    @BeforeEach
-    protected void setUp() throws Exception {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+   private SessionFactory sessionFactory;
 
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        }
-        catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-            throw new RuntimeException("Failed to initialize Hibernate SessionFactory", e);
-        }
-    }
+   @BeforeEach
+   protected void setUp() throws Exception {
+      final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 
-    @Test
-    void doStuff(){
+      try {
+         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+      } catch (Exception e) {
+         StandardServiceRegistryBuilder.destroy(registry);
+         throw new RuntimeException("Failed to initialize Hibernate SessionFactory", e);
+      }
+   }
 
-        User user = new User("Josh");
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+   @Test
+   void doStuff() {
 
-        session.persist(user);
-        session.getTransaction().commit();
-    }
+      User user = new User("Josh");
+      Session session = sessionFactory.openSession();
+      session.beginTransaction();
+
+      session.persist(user);
+      session.getTransaction().commit();
+   }
 }

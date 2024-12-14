@@ -8,31 +8,35 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "albums")
 public class Album {
-    
-    @Id @Column(name = "album_id") private int id;
 
-    @Column(name = "album_name") private String name;
+   @Id
+   @Column(name = "album_id")
+   private Integer id;
 
-    public Album() {}
+   @Column(name = "album_name")
+   private String name;
 
-    public Album(String name) {
-        this.name = name;
-    }
+   public Album() {
+   }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+   public Album(String name) {
+      this.name = name;
+   }
 
-    public int getId() {
-        return id;
-    }
+   public void setId(Integer id) {
+      this.id = id;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getName() {
-        return name;
-    }
+   public Integer getId() {
+      return id;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public String getName() {
+      return name;
+   }
 
 }
