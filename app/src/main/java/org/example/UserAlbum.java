@@ -4,10 +4,13 @@ import java.time.Duration;
 
 import org.hibernate.annotations.NaturalId;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,12 +21,12 @@ public class UserAlbum {
    @GeneratedValue
    private Integer id;
 
-   @NaturalId
-   @Column(name = "user_id")
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "user_id")
    private User user;
 
-   @NaturalId
-   @Column(name = "album_id")
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "album_id")
    private Album album;
 
    @Column(name = "time_listened", columnDefinition = "interval")
