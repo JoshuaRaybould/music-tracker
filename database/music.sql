@@ -22,6 +22,7 @@ CREATE TABLE users_artists (
 CREATE TABLE songs (
   song_id INTEGER GENERATED ALWAYS AS IDENTITY,
   song_name VARCHAR(255),
+  artist_id INTEGER REFERENCES artists(artist_id),
   PRIMARY KEY(song_id)
 );
 
@@ -35,29 +36,19 @@ CREATE TABLE users_songs (
   PRIMARY KEY(user_id, song_id)
 );
 
-CREATE TABLE artists_songs (
-  artist_id INTEGER REFERENCES artists(artist_id),
-  song_id INTEGER REFERENCES songs(song_id),
-  PRIMARY KEY(artist_id, song_id)
-);
-
 CREATE TABLE albums (
   album_id INTEGER GENERATED ALWAYS AS IDENTITY,
   album_name VARCHAR(255),
   album_length INTERVAL,
-  first_listened_album TIMESTAMP,
-  last_listened_album TIMESTAMP,
+  artist_id INTEGER REFERENCES artists(artist_id),
   PRIMARY KEY(album_id)
 );
 
 CREATE TABLE users_albums (
   user_id INTEGER REFERENCES users(user_id),
   album_id INTEGER REFERENCES albums(album_id),
+  time_listened_album INTERVAL,
+  first_listened_album TIMESTAMP,
+  last_listened_album TIMESTAMP,
   PRIMARY KEY(user_id, album_id)
-);
-
-CREATE TABLE artists_albums (
-  artist_id INTEGER REFERENCES artists(artist_id),
-  album_id INTEGER REFERENCES albums(album_id),
-  PRIMARY KEY(artist_id, album_id)
 );
