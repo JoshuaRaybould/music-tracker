@@ -20,10 +20,13 @@
 
 
 
-       <mapping class="org.example.Song"/>
-       <mapping class="org.example.User"/>
-       <mapping class="org.example.Album"/>
-       <mapping class="org.example.Artist"/>
+         <mapping class="org.example.User"/>
+         <mapping class="org.example.Album"/>
+         <mapping class="org.example.Artist"/>
+         <mapping class="org.example.Song"/>
+         <mapping class="org.example.UserSong"/>
+         <mapping class="org.example.UserArtist"/>
+         <mapping class="org.example.UserAlbum"/>
 
     </session-factory>
 </hibernate-configuration>
