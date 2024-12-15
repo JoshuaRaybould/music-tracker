@@ -63,7 +63,7 @@ public class DataProcessor {
 
       for (RawSong rawSong : allSongs) {
 
-         if (rawSong.getName() == null) {
+         if (rawSong.getName() == null || rawSong.getTimeListened() < 15000) {
             continue;
          }
          // For now since only a single person will be using it, there won't be data
@@ -92,11 +92,13 @@ public class DataProcessor {
          }
 
       }
+      session.beginTransaction();
+      session.getTransaction().commit();
    }
 
    public Duration toDuration(Integer timeListened) {
-      Integer timeL = (timeListened / 1000) / 60;
-      return Duration.ofMinutes(timeL);
+      Integer timeL = (timeListened / 1000);
+      return Duration.ofSeconds(timeL);
    }
 
    private void createArtist(User user, RawSong rawSong, String artistName, Session session) {
@@ -120,8 +122,6 @@ public class DataProcessor {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
       UserArtist userArtist = userArtists.get(nameToUserArtistPos.get(artistName));
       userArtist.updateTimeListened(songPlayedDuration);
-      session.beginTransaction();
-      session.getTransaction().commit();
    }
 
    private void createAlbum(User user, RawSong rawSong, String albumName, Session session) {
@@ -145,8 +145,6 @@ public class DataProcessor {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
       UserAlbum userAlbum = userAlbums.get(nameToUserAlbumPos.get(albumName));
       userAlbum.updateTimeListened(songPlayedDuration);
-      session.beginTransaction();
-      session.getTransaction().commit();
    }
 
    private void createSong(User user, RawSong rawSong, String songUri, Session session) {
@@ -173,8 +171,6 @@ public class DataProcessor {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
       UserSong userSong = userSongs.get(uriToUserSongPos.get(songUri));
       userSong.updateTimeListened(songPlayedDuration);
-      session.beginTransaction();
-      session.getTransaction().commit();
    }
 
    public Session getSession() {
