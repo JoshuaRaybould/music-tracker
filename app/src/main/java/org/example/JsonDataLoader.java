@@ -10,8 +10,8 @@ public class JsonDataLoader {
 
    private List<RawSong> songs;
 
-   public JsonDataLoader() {
-      InputStream inStream = getClass().getClassLoader().getResourceAsStream("songData.json");
+   public JsonDataLoader(String jsonfile) {
+      InputStream inStream = getClass().getClassLoader().getResourceAsStream(jsonfile);
       ObjectMapper objectMapper = new ObjectMapper();
       try {
          songs = objectMapper.readValue(inStream, new TypeReference<List<RawSong>>() {

@@ -30,8 +30,8 @@ public class ProcessData {
 
    private Session session;
 
-   public ProcessData() {
-      JsonDataLoader dataLoader = new JsonDataLoader();
+   public ProcessData(String jsonfile) {
+      JsonDataLoader dataLoader = new JsonDataLoader(jsonfile);
       allSongs = dataLoader.getSongs();
       setup();
       carryOutProcessing();

@@ -15,7 +15,10 @@ public class App {
          try {
             command = reader.readLine();
             if (command.equals("l")) {
-               JsonDataLoader loader = new JsonDataLoader();
+               JsonDataLoader loader = new JsonDataLoader("songData.json");
+
+            } else if (command.equals("p")) {
+               ProcessData processData = new ProcessData("songData.json");
             }
          } catch (IOException e) {
             e.printStackTrace();
