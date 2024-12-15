@@ -174,7 +174,9 @@ public class App extends Application {
 
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-      List<Album> albums = session.createNativeQuery("SELECT * FROM albums", Album.class).getResultList();
+      List<Album> albums = session.createNativeQuery(
+            "SELECT albums.album_id, albums.album_name, COUNT(*) FROM albums INNER JOIN songs ON albums.album_id=songs.album_id GROUP BY (albums.album_id, albums.album_name) HAVING COUNT(*) > 1",
+            Album.class).getResultList();
 
       for (Album album : albums) {
          table.getItems().add(album);
