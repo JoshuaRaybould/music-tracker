@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +33,9 @@ public class Song {
    @JoinColumn(name = "album_id")
    private Album album;
 
+   @OneToMany(mappedBy = "song")
+   private Set<UserSong> userSongs = new HashSet<UserSong>();
+
    public Song() {
    }
 
@@ -44,6 +51,18 @@ public class Song {
 
    public String getName() {
       return name;
+   }
+
+   public Set<UserSong> getUserUserSongs() {
+      return userSongs;
+   }
+
+   public void setUserSongs(Set<UserSong> userSongs) {
+      this.userSongs = userSongs;
+   }
+
+   public void addUserSong(UserSong userSong) {
+      userSongs.add(userSong);
    }
 
 }

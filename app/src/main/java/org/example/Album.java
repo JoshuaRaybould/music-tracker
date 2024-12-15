@@ -1,10 +1,14 @@
 package org.example;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +22,9 @@ public class Album {
 
    @Column(name = "album_name")
    private String name;
+
+   @OneToMany(mappedBy = "album")
+   private Set<UserAlbum> userAlbums = new HashSet<UserAlbum>();
 
    public Album() {
    }
@@ -40,6 +47,18 @@ public class Album {
 
    public String getName() {
       return name;
+   }
+
+   public Set<UserAlbum> getUserUserAlbums() {
+      return userAlbums;
+   }
+
+   public void setUserAlbums(Set<UserAlbum> userAlbums) {
+      this.userAlbums = userAlbums;
+   }
+
+   public void addUserAlbum(UserAlbum userAlbum) {
+      userAlbums.add(userAlbum);
    }
 
 }
