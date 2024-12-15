@@ -5,10 +5,13 @@ services:
     restart: always
     ports:
       - 5432:5432
-    volumes:
-      - ./database:/docker-entrypoint-initdb.d
     shm_size: 128mb
-     
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
     environment:
       POSTGRES_PASSWORD: secret

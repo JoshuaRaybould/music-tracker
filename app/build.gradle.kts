@@ -27,6 +27,9 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
 
     implementation("commons-io:commons-io:2.18.0")
+
+    implementation("org.postgresql:postgresql:42.2.5")
+    implementation("org.hibernate.orm:hibernate-core:6.5.3.Final")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

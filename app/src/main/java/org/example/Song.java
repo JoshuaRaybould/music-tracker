@@ -1,47 +1,68 @@
 package org.example;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashSet;
+import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "songs")
 public class Song {
-    
-    @JsonProperty("master_metadata_track_name")
-    private String name;
 
-    @JsonProperty("ms_played")
-    private int timeListened;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "song_id")
+   private Integer id;
 
-    @JsonProperty("master_metadata_album_artist_name")
-    private String artistName;
-    
-    @JsonProperty("master_metadata_album_album_name")
-    private String albumName;
+   @Column(name = "song_name")
+   private String name;
 
-    @JsonProperty("spotify_track_uri")
-    private String trackUri;
+   @ManyToOne
+   @JoinColumn(name = "artist_id")
+   private Artist artist;
 
-    public Song(){
+   @ManyToOne
+   @JoinColumn(name = "album_id")
+   private Album album;
 
-    }
+   @OneToMany(mappedBy = "song")
+   private Set<UserSong> userSongs = new HashSet<UserSong>();
 
-    public String getName() {
-        return name;
-    }
+   public Song() {
+   }
 
-    public int getTimeListened() {
-        return timeListened;
-    }
+   public Song(String name, Artist artist, Album album) {
+      this.name = name;
+      this.artist = artist;
+      this.album = album;
+   }
 
-    public String getArtistName() {
-        return artistName;
-    }
+   public void setName(String name) {
+      this.name = name;
+   }
 
-    public String getAlbumName() {
-        return albumName;
-    }
-    
-    public String getTrackUri() {
-        return trackUri;
-    }
+   public String getName() {
+      return name;
+   }
+
+   public Set<UserSong> getUserUserSongs() {
+      return userSongs;
+   }
+
+   public void setUserSongs(Set<UserSong> userSongs) {
+      this.userSongs = userSongs;
+   }
+
+   public void addUserSong(UserSong userSong) {
+      userSongs.add(userSong);
+   }
+
 }
