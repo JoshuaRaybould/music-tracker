@@ -86,7 +86,7 @@ public class DataProcessor {
             updateAlbum(rawSong, albumName, session);
          }
 
-         if (!nameToUserArtistPos.containsKey(songUri)) {
+         if (!uriToUserSongPos.containsKey(songUri)) {
             createSong(user, rawSong, songUri, session);
          } else {
             updateSong(rawSong, songUri, session);
@@ -165,7 +165,6 @@ public class DataProcessor {
 
       // Put the artist in the database
       session.beginTransaction();
-      session.merge(user);
       session.persist(artist);
       session.persist(userSong);
       session.getTransaction().commit();
@@ -176,7 +175,6 @@ public class DataProcessor {
       UserSong userSong = userSongs.get(uriToUserSongPos.get(songUri));
       userSong.updateTimeListened(songPlayedDuration);
       session.beginTransaction();
-      session.merge(userSong);
       session.getTransaction().commit();
    }
 
