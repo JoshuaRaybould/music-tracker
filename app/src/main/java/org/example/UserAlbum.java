@@ -88,4 +88,8 @@ public class UserAlbum {
    public LocalDate getLastListenedDate() {
       return lastListenedDate;
    }
+
+   public void updateTimeListened(Duration additionalDuration) {
+      timeListened = timeListened.plus(additionalDuration);
+   }
 }

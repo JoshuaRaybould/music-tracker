@@ -100,4 +100,8 @@ public class UserSong {
    public Integer getLongestStreak() {
       return longestStreak;
    }
+
+   public void updateTimeListened(Duration additionalDuration) {
+      timeListened = timeListened.plus(additionalDuration);
+   }
 }
