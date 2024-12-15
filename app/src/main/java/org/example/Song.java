@@ -26,10 +26,6 @@ public class Song {
    private String name;
 
    @ManyToOne
-   @JoinColumn(name = "artist_id")
-   private Artist artist;
-
-   @ManyToOne
    @JoinColumn(name = "album_id")
    private Album album;
 
@@ -39,9 +35,8 @@ public class Song {
    public Song() {
    }
 
-   public Song(String name, Artist artist, Album album) {
+   public Song(String name, Album album) {
       this.name = name;
-      this.artist = artist;
       this.album = album;
    }
 
@@ -63,10 +58,6 @@ public class Song {
 
    public void addUserSong(UserSong userSong) {
       userSongs.add(userSong);
-   }
-
-   public Artist getArtist() {
-      return artist;
    }
 
    public Album getAlbum() {

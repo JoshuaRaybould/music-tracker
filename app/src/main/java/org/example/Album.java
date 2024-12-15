@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -23,14 +25,19 @@ public class Album {
    @Column(name = "album_name")
    private String name;
 
+   @ManyToOne
+   @JoinColumn(name = "artist_id")
+   private Artist artist;
+
    @OneToMany(mappedBy = "album")
    private Set<UserAlbum> userAlbums = new HashSet<UserAlbum>();
 
    public Album() {
    }
 
-   public Album(String name) {
+   public Album(String name, Artist artist) {
       this.name = name;
+      this.artist = artist;
    }
 
    public void setId(Integer id) {
@@ -59,6 +66,10 @@ public class Album {
 
    public void addUserAlbum(UserAlbum userAlbum) {
       userAlbums.add(userAlbum);
+   }
+
+   public Artist getArtist() {
+      return artist;
    }
 
 }
