@@ -30,11 +30,11 @@ public class DataProcessor {
 
    private Session session;
 
-   public DataProcessor(String jsonfile) {
+   public DataProcessor(String jsonfile, User user) {
       JsonDataLoader dataLoader = new JsonDataLoader(jsonfile);
       allSongs = dataLoader.getSongs();
       setup();
-      carryOutProcessing();
+      carryOutProcessing(user);
    }
 
    public void setup() {
@@ -54,9 +54,8 @@ public class DataProcessor {
       }
    }
 
-   private void carryOutProcessing() {
+   private void carryOutProcessing(User user) {
       session = sessionFactory.openSession();
-      User user = new User("Josh");
       // Put the user in the database
       session.beginTransaction();
       session.persist(user);

@@ -13,9 +13,10 @@ public class LogicTest {
 
    @Test
    void testUserCreation() {
+      User user = new User("J");
       Boolean foundKendrick = false;
 
-      DataProcessor processData = new DataProcessor("exampleData.json");
+      DataProcessor processData = new DataProcessor("exampleData.json", user);
       Session session = processData.getSession();
       session.beginTransaction();
 
