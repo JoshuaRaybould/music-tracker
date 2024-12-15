@@ -110,7 +110,8 @@ public class App extends Application {
 
       TableColumn<Song, String> artistNameColumn = new TableColumn<>("Artist Name");
       artistNameColumn
-            .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArtist().getName()));
+            .setCellValueFactory(
+                  cellData -> new SimpleStringProperty(cellData.getValue().getAlbum().getArtist().getName()));
 
       TableColumn<Song, String> timeListenedColumn = new TableColumn<>("Time Listened");
       timeListenedColumn.setCellValueFactory(cellData -> {
@@ -152,9 +153,10 @@ public class App extends Application {
       artistNameColumn
             .setCellValueFactory(cellData -> {
                Integer albumId = cellData.getValue().getId();
-               List<Song> songs = session
-                     .createNativeQuery("SELECT * FROM songs WHERE album_id = " + albumId, Song.class).getResultList();
-               String artistName = songs.get(0).getArtist().getName();
+               List<Album> albums = session
+                     .createNativeQuery("SELECT * FROM albums WHERE album_id = " + albumId, Album.class)
+                     .getResultList();
+               String artistName = albums.get(0).getArtist().getName();
                return new SimpleStringProperty(artistName);
             });
 
@@ -177,8 +179,15 @@ public class App extends Application {
 
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+      /*
+       * List<Album> albums = session.createNativeQuery(
+       * "SELECT albums.album_id, albums.album_name, albums.artist_id FROM albums INNER JOIN users_albums ON albums.album_id=users_albums.album_id ORDER BY time_listened DESC"
+       * ,
+       * Album.class).getResultList();
+       */
+
       List<Album> albums = session.createNativeQuery(
-            "SELECT albums.album_id, albums.album_name, COUNT(*) FROM albums INNER JOIN songs ON albums.album_id=songs.album_id INNER JOIN users_albums ON albums.album_id=users_albums.album_id GROUP BY (albums.album_id, albums.album_name, time_listened) HAVING COUNT(*) > 1 ORDER BY time_listened DESC",
+            "SELECT albums.album_id, albums.album_name, albums.artist_id, COUNT(*) FROM albums INNER JOIN songs ON albums.album_id=songs.album_id INNER JOIN users_albums ON albums.album_id=users_albums.album_id GROUP BY (albums.album_id, albums.album_name, albums.artist_id, time_listened) HAVING COUNT(*) > 1 ORDER BY time_listened DESC",
             Album.class).getResultList();
 
       for (Album album : albums) {
