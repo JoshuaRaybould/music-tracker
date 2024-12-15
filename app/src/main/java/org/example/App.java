@@ -137,6 +137,7 @@ public class App extends Application {
          table.getItems().add(song);
       }
 
+      root.getChildren().removeIf(node -> !(node instanceof Button));
       root.getChildren().add(table);
    }
 
@@ -182,6 +183,7 @@ public class App extends Application {
          table.getItems().add(album);
       }
 
+      root.getChildren().removeIf(node -> !(node instanceof Button));
       root.getChildren().add(table);
    }
 
@@ -214,6 +216,7 @@ public class App extends Application {
          table.getItems().add(artist);
       }
 
+      root.getChildren().removeIf(node -> !(node instanceof Button));
       root.getChildren().add(table);
    }
 }
