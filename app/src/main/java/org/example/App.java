@@ -145,13 +145,15 @@ public class App extends Application {
       TableColumn<Album, String> albumNameColumn = new TableColumn<>("Album");
       albumNameColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("name"));
 
-      /*
-       * TableColumn<Album, String> artistNameColumn = new
-       * TableColumn<>("Artist Name");
-       * artistNameColumn
-       * .setCellValueFactory(cellData -> new
-       * SimpleStringProperty(cellData.getValue().getArtist().getName()));
-       */
+      TableColumn<Album, String> artistNameColumn = new TableColumn<>("Artist Name");
+      artistNameColumn
+            .setCellValueFactory(cellData -> {
+               Integer albumId = cellData.getValue().getId();
+               List<Song> songs = session
+                     .createNativeQuery("SELECT * FROM songs WHERE album_id = " + albumId, Song.class).getResultList();
+               String artistName = songs.get(0).getArtist().getName();
+               return new SimpleStringProperty(artistName);
+            });
 
       TableColumn<Album, String> timeListenedColumn = new TableColumn<>("Time Listened");
       timeListenedColumn.setCellValueFactory(cellData -> {
@@ -167,6 +169,7 @@ public class App extends Application {
       });
 
       table.getColumns().add(albumNameColumn);
+      table.getColumns().add(artistNameColumn);
       table.getColumns().add(timeListenedColumn);
 
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
