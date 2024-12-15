@@ -6,56 +6,52 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
-    application
-    id("org.openjfx.javafxplugin") version "0.1.0"
+   // Apply the application plugin to add support for building a CLI application in Java.
+   application
+   id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
+   // Use Maven Central for resolving dependencies.
+   mavenCentral()
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+   // Use JUnit Jupiter for testing.
+   testImplementation(libs.junit.jupiter)
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // This dependency is used by the application.
-    implementation(libs.guava)
+   // This dependency is used by the application.
+   implementation(libs.guava)
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
+   implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
 
-    implementation("commons-io:commons-io:2.18.0")
+   implementation("commons-io:commons-io:2.18.0")
 
-    implementation("org.postgresql:postgresql:42.2.5")
-    implementation("org.hibernate.orm:hibernate-core:6.5.3.Final")
+   implementation("org.postgresql:postgresql:42.2.5")
+   implementation("org.hibernate.orm:hibernate-core:6.5.3.Final")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+   toolchain {
+      languageVersion = JavaLanguageVersion.of(21)
+   }
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = "org.example.App"
+   // Define the main class for the application.
+   mainClass = "org.example.App"
 }
 
 tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+   // Use JUnit Platform for unit tests.
+   useJUnitPlatform()
 }
 
 javafx {
-    modules("javafx.controls", "javafx.fxml")
+   version = "17"
+   modules("javafx.controls", "javafx.fxml")
 }
 
-
-javafx {
-    version = "17"
-    modules("javafx.controls", "javafx.fxml")
-}
