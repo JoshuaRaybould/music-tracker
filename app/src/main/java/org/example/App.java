@@ -18,7 +18,7 @@ public class App {
                JsonDataLoader loader = new JsonDataLoader("songData.json");
 
             } else if (command.equals("p")) {
-               ProcessData processData = new ProcessData("songData.json");
+               DataProcessor processData = new DataProcessor("songData.json");
             }
          } catch (IOException e) {
             e.printStackTrace();

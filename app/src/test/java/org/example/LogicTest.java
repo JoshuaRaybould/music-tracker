@@ -15,7 +15,7 @@ public class LogicTest {
    void testUserCreation() {
       Boolean foundKendrick = false;
 
-      ProcessData processData = new ProcessData("exampleData.json");
+      DataProcessor processData = new DataProcessor("exampleData.json");
       Session session = processData.getSession();
       session.beginTransaction();
 

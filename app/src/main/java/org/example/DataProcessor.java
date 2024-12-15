@@ -11,7 +11,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class ProcessData {
+public class DataProcessor {
    private List<RawSong> allSongs;
 
    private List<UserSong> userSongs;
@@ -30,7 +30,7 @@ public class ProcessData {
 
    private Session session;
 
-   public ProcessData(String jsonfile) {
+   public DataProcessor(String jsonfile) {
       JsonDataLoader dataLoader = new JsonDataLoader(jsonfile);
       allSongs = dataLoader.getSongs();
       setup();
