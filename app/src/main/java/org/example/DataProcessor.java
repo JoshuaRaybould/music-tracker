@@ -79,7 +79,7 @@ public class DataProcessor {
             updateArtist(rawSong, artistName, session);
          }
 
-         if (!nameToUserAlbumPos.containsKey(albumName)) {
+         if (!nameToUserAlbumPos.containsKey(albumName + artistName)) {
             createAlbum(user, rawSong, albumName, session);
          } else {
             updateAlbum(rawSong, albumName, session);
@@ -126,15 +126,16 @@ public class DataProcessor {
 
    private void createAlbum(User user, RawSong rawSong, String albumName, Session session) {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
-      Album album = new Album(albumName);
+      Artist artist = userArtists.get(nameToUserArtistPos.get(rawSong.getArtistName())).getArtist();
+      Album album = new Album(albumName, artist);
 
       UserAlbum userAlbum = new UserAlbum(user, album, songPlayedDuration, null, null);
       userAlbums.add(userAlbum);
       user.addUserAlbum(userAlbum);
       album.addUserAlbum(userAlbum);
-      nameToUserAlbumPos.put(albumName, userAlbums.size() - 1);
+      nameToUserAlbumPos.put(albumName + artist.getName(), userAlbums.size() - 1);
 
-      // Put the artist in the database
+      // Put the album in the database
       session.beginTransaction();
       session.persist(album);
       session.persist(userAlbum);
@@ -143,15 +144,14 @@ public class DataProcessor {
 
    private void updateAlbum(RawSong rawSong, String albumName, Session session) {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
-      UserAlbum userAlbum = userAlbums.get(nameToUserAlbumPos.get(albumName));
+      UserAlbum userAlbum = userAlbums.get(nameToUserAlbumPos.get(albumName + rawSong.getArtistName()));
       userAlbum.updateTimeListened(songPlayedDuration);
    }
 
    private void createSong(User user, RawSong rawSong, String songUri, Session session) {
       Duration songPlayedDuration = toDuration(rawSong.getTimeListened());
-      Artist artist = userArtists.get(nameToUserArtistPos.get(rawSong.getArtistName())).getArtist();
-      Album album = userAlbums.get(nameToUserAlbumPos.get(rawSong.getAlbumName())).getAlbum();
-      Song song = new Song(rawSong.getName(), artist, album);
+      Album album = userAlbums.get(nameToUserAlbumPos.get(rawSong.getAlbumName() + rawSong.getArtistName())).getAlbum();
+      Song song = new Song(rawSong.getName(), album);
 
       UserSong userSong = new UserSong(user, song, songPlayedDuration, null, null, null);
       userSongs.add(userSong);
@@ -160,9 +160,9 @@ public class DataProcessor {
 
       uriToUserSongPos.put(songUri, userSongs.size() - 1);
 
-      // Put the artist in the database
+      // Put the song in the database
       session.beginTransaction();
-      session.persist(artist);
+      session.persist(song);
       session.persist(userSong);
       session.getTransaction().commit();
    }
