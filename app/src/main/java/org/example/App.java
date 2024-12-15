@@ -1,9 +1,5 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -71,6 +67,8 @@ public class App extends Application {
             table.getColumns().add(artistNameColumn);
             table.getColumns().add(timeListenedColumn);
 
+            table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
             Session session = dataProcessor.getSession();
             List<Song> songs = session.createNativeQuery("SELECT * FROM songs", Song.class).getResultList();
 
@@ -88,10 +86,22 @@ public class App extends Application {
    }
 
    public String formatDuration(Duration duration) {
-      String hms = String.format("%d:%02d:%02d",
-            duration.toHours(),
-            duration.toMinutesPart(),
-            duration.toSecondsPart());
+      String hms;
+      long hours = duration.toHours();
+      int minutes = duration.toMinutesPart();
+      int seconds = duration.toSecondsPart();
+      if (hours == 0 && minutes == 0) {
+         hms = String.format("%d seconds",
+               seconds);
+      } else if (hours == 0) {
+         hms = String.format("%d minutes and %d seconds",
+               minutes,
+               seconds);
+      } else {
+         hms = String.format("%d hours %d minutes",
+               hours,
+               minutes);
+      }
       return hms;
    }
 }
