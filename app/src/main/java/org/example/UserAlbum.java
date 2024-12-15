@@ -1,8 +1,7 @@
 package org.example;
 
 import java.time.Duration;
-
-import org.hibernate.annotations.NaturalId;
+import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,16 +32,16 @@ public class UserAlbum {
    private Duration timeListened;
 
    @Column(name = "first_listened")
-   private java.util.Date firstListenedDate;
+   private LocalDate firstListenedDate;
 
    @Column(name = "last_listened")
-   private java.util.Date lastListenedDate;
+   private LocalDate lastListenedDate;
 
    public UserAlbum() {
    }
 
-   public UserAlbum(User user, Album album, Duration timeListened, java.util.Date firstListenedDate,
-         java.util.Date lastListenedDate) {
+   public UserAlbum(User user, Album album, Duration timeListened, LocalDate firstListenedDate,
+         LocalDate lastListenedDate) {
       this.user = user;
       this.album = album;
       this.timeListened = timeListened;
@@ -74,19 +73,19 @@ public class UserAlbum {
       return timeListened;
    }
 
-   public void setFirstListenedDate(java.util.Date firstListenedDate) {
+   public void setFirstListenedDate(LocalDate firstListenedDate) {
       this.firstListenedDate = firstListenedDate;
    }
 
-   public java.util.Date getFirstListenedDate() {
+   public LocalDate getFirstListenedDate() {
       return firstListenedDate;
    }
 
-   public void setLastListenedDate(java.util.Date lastListenedDate) {
+   public void setLastListenedDate(LocalDate lastListenedDate) {
       this.lastListenedDate = lastListenedDate;
    }
 
-   public java.util.Date getLastListenedDate() {
+   public LocalDate getLastListenedDate() {
       return lastListenedDate;
    }
 }
