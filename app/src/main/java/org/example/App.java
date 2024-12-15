@@ -131,7 +131,9 @@ public class App extends Application {
 
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-      List<Song> songs = session.createNativeQuery("SELECT * FROM songs", Song.class).getResultList();
+      List<Song> songs = session.createNativeQuery(
+            "SELECT songs.* FROM songs INNER JOIN users_songs ON users_songs.song_id=songs.song_id ORDER BY time_listened DESC",
+            Song.class).getResultList();
 
       for (Song song : songs) {
          table.getItems().add(song);
@@ -176,7 +178,7 @@ public class App extends Application {
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
       List<Album> albums = session.createNativeQuery(
-            "SELECT albums.album_id, albums.album_name, COUNT(*) FROM albums INNER JOIN songs ON albums.album_id=songs.album_id GROUP BY (albums.album_id, albums.album_name) HAVING COUNT(*) > 1",
+            "SELECT albums.album_id, albums.album_name, COUNT(*) FROM albums INNER JOIN songs ON albums.album_id=songs.album_id INNER JOIN users_albums ON albums.album_id=users_albums.album_id GROUP BY (albums.album_id, albums.album_name, time_listened) HAVING COUNT(*) > 1 ORDER BY time_listened DESC",
             Album.class).getResultList();
 
       for (Album album : albums) {
@@ -210,7 +212,9 @@ public class App extends Application {
 
       table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-      List<Artist> artists = session.createNativeQuery("SELECT * FROM artists", Artist.class).getResultList();
+      List<Artist> artists = session.createNativeQuery(
+            "SELECT artists.* FROM artists INNER JOIN users_artists ON artists.artist_id=users_artists.artist_id ORDER BY time_listened DESC",
+            Artist.class).getResultList();
 
       for (Artist artist : artists) {
          table.getItems().add(artist);
