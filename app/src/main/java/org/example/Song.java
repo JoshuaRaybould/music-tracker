@@ -65,4 +65,12 @@ public class Song {
       userSongs.add(userSong);
    }
 
+   public Artist getArtist() {
+      return artist;
+   }
+
+   public Album getAlbum() {
+      return album;
+   }
+
 }
