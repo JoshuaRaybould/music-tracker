@@ -79,6 +79,25 @@ public class HibernateTest {
       assertEquals("Kendrick Lamar", theArtist.getName());
       assertEquals(totalDuration, userArt.getTimeListened());
 
+      userArt.setTimeListened(Duration.ofMinutes(5));
+
+      session.beginTransaction();
+      session.getTransaction().commit();
+
+      transaction = session.beginTransaction();
+
+      usr = (User) session.get(User.class, 1L);
+
+      // Commit the transaction
+      transaction.commit();
+
+      userArtists = usr.getUserUserArtists();
+      userArts = new ArrayList<>(userArtists);
+      userArt = userArts.get(0);
+      theArtist = userArt.getArtist();
+
+      assertEquals(Duration.ofMinutes(5), userArt.getTimeListened());
+
       session.close();
    }
 
