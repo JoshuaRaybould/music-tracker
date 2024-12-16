@@ -27,3 +27,5 @@ build
 
 *.json
 !example*.json
+*.class
+bin/
