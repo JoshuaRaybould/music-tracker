@@ -19,11 +19,12 @@ public class JsonDataLoader {
 
    public JsonDataLoader(String jsonfile) {
       songs = new ArrayList<RawSong>();
-      if (jsonfile.equals("AllSongData")) {
-         loadAllData();
-      } else {
-         loadTestData(jsonfile);
-      }
+      loadTestData(jsonfile);
+   }
+
+   public JsonDataLoader() {
+      songs = new ArrayList<RawSong>();
+      loadAllData();
    }
 
    public void loadTestData(String jsonFile) {

@@ -30,7 +30,7 @@ public class App extends Application {
 
    @Override
    public void start(Stage primaryStage) {
-      DataProcessor dataProcessor = new DataProcessor("songData.json", accUser);
+      DataProcessor dataProcessor = new DataProcessor(accUser);
       session = dataProcessor.getSession();
 
       VBox vbox = new VBox(10); // 10 is the spacing between buttons

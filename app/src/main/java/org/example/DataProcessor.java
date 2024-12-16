@@ -37,6 +37,13 @@ public class DataProcessor {
       carryOutProcessing(user);
    }
 
+   public DataProcessor(User user) {
+      JsonDataLoader dataLoader = new JsonDataLoader();
+      allSongs = dataLoader.getSongs();
+      setup();
+      carryOutProcessing(user);
+   }
+
    public void setup() {
       // Initialise lists
       userSongs = new ArrayList<>();
